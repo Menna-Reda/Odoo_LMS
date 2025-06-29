@@ -1,0 +1,78 @@
+<odoo>
+    <record id="view_library_loan_tree" model="ir.ui.view">
+        <field name="name">library.loan.tree</field>
+        <field name="model">library.loan</field>
+        <field name="arch" type="xml">
+            <tree create="true" decoration-info="status == 'borrowed'" decoration-success="status == 'returned'"
+                       decoration-warning="status == 'draft'" decoration-danger="status == 'overdue'">
+                <field name="partner_id"/>
+                <field name="borrow_date"/>
+                <field name="return_date"/>
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_library_loan_form" model="ir.ui.view">
+        <field name="name">library.loan.form</field>
+        <field name="model">library.loan</field>
+        <field name="arch" type="xml">
+            <form string="Loan">
+                <header>
+                    <button name="action_borrow" type="object" string="Confirm Borrow" invisible="status != 'draft'" class="btn-primary"/>
+                    <button name="action_reset_to_draft" type="object" string="Set Draft" invisible="status == 'draft'" class="btn-secondary" groups="lms.group_lms_librarian_manager"/>
+                    <button name="%(action_return_book_wizard)d" type="action" string="Return Books" class="oe_highlight" icon="fa-undo" invisible="status in ['returned','draft']"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,borrowed,returned,overdue"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="partner_id" string="Member Name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="partner_id" widget="res_partner_many2one"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="borrow_date"/>
+                            <field name="return_date"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Loaned Books">
+                            <field name="loan_line_ids">
+                                <tree editable="bottom">
+                                    <field name="book_id"/>
+                                    <field name="status"/>
+                                    <button name="action_return_book" type="object" class="btn-danger" string="Return this book" invisible="status == 'returned'"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_loan_search" model="ir.ui.view">
+        <field name="name">library.loan.search</field>
+        <field name="model">library.loan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="status"/>
+                <separator/>
+                <filter name="borrowed_loans" string="Borrowed Loans" domain="[('status', '=', 'borrowed')]"/>
+                <filter name="draft_loans" string="Draft Loans" domain="[('status', '=', 'draft')]"/>
+                <filter name="returned_loans" string="All Returned" domain="[('status', '=', 'returned')]"/>
+                <filter name="overdue_loans" string="Overdue Loans" domain="[('status', '=', 'overdue')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_partner" string="Member" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_by_borrow_date" string="Borrow Date" context="{'group_by': 'borrow_date'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

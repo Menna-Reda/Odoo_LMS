@@ -1,0 +1,33 @@
+<odoo>
+    <odoo>
+
+    <record id="view_return_book_wizard_form" model="ir.ui.view">
+        <field name="name">return.book.wizard.form</field>
+        <field name="model">library.book.return.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Return Books">
+                <sheet>
+                    <group>
+                        <field name="loan_id" class="o_label_nowrap"/>
+                        <field name="loan_line_ids" class="o_label_nowrap"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_return_books" type="object" string="Return Books" class="oe_highlight btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_return_book_wizard" model="ir.actions.act_window">
+            <field name="name">Return Books</field>
+            <field name="res_model">library.book.return.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field> <!-- Opens the wizard in a modal dialog box -->
+            <!-- Binds this action to the 'library.book' model's form view -->
+            <field name="binding_model_id" ref="lms.model_library_loan"/>
+            <field name="binding_view_types">form</field>
+    </record>
+</odoo>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <record id="action_borrowed_books_report" model="ir.actions.report">
+        <field name="name">Borrowed Books Report</field>
+        <field name="model">library.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" ref="model_library_loan"/>
+        <field name="binding_type">report</field>
+        <field name="report_name">lms.report_library_loans_pdf</field>
+    </record>
+
+    <record id="action_open_loans_for_report" model="ir.actions.act_window">
+    <field name="name">Generate Borrowed Books Report</field>
+    <field name="res_model">library.loan</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('status', '=', 'borrowed')]</field>
+    <field name="context">{}</field>
+</record>
+</odoo>
+

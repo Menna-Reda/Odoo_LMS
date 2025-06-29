@@ -1,0 +1,14 @@
+<odoo>
+    <record id="check_overdue_loans_cron" model="ir.cron">
+        <field name="name">Loan: check for overdue </field>
+        <field name="model_id" ref="model_library_loan"/>
+        <field name="state">code</field>
+        <field name="code">model.update_overdue_loans()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+                <!--   numbercall = -1 to be unlimited y3ni call it every day     -->
+        <field name="active">True</field>
+
+    </record>
+</odoo>

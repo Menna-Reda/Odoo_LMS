@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_overdue_loans_tree" model="ir.ui.view">
+        <field name="name">library.loan.overdue.tree</field>
+        <field name="model">library.loan</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="partner_id"/>
+                <field name="borrow_date"/>
+                <field name="return_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_top_borrowed_books_graph" model="ir.ui.view">
+        <field name="name">library.top.borrowed.books.graph</field>
+        <field name="model">library.book.stats</field>
+        <field name="arch" type="xml">
+            <graph string="Top Borrowed Books" type="bar">
+                <field name="book_id" type="row"/>
+                <field name="borrow_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,32 @@
+<odoo>
+
+    <record id="view_borrow_book_wizard_form" model="ir.ui.view">
+        <field name="name">borrow.book.wizard.form</field>
+        <field name="model">library.book.borrow.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Borrow Book">
+                <sheet>
+                    <group>
+                        <field name="book_id" class="o_label_nowrap"/>
+                        <field name="partner_id" class="o_label_nowrap"/>
+                        <field name="borrow_date" class="o_label_nowrap"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_borrow_book" type="object" string="Borrow Book" class="oe_highlight btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_borrow_book_wizard" model="ir.actions.act_window">
+            <field name="name">Borrow Book</field>
+            <field name="res_model">library.book.borrow.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field> <!-- Opens the wizard in a modal dialog box -->
+            <!-- Binds this action to the 'library.book' model's form view -->
+            <field name="binding_model_id" ref="lms.model_library_book"/>
+            <field name="binding_view_types">form</field>
+    </record>
+</odoo>

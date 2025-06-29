@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="ir.module.category" id="module_category_lms">
+            <field name="name">Library Management System</field>
+            <field name="description">User access levels for Library Management System Module</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="group_lms_member" model="res.groups">
+            <field name="name">Member</field>
+            <field name="category_id" ref="module_category_lms"/>
+            <field name="comment">Member role: Can view books, and their own loans.</field>
+        </record>
+
+            <record id="group_lms_librarian_employee" model="res.groups">
+            <field name="name">Librarian Employee</field>
+            <field name="category_id" ref="module_category_lms"/>
+            <field name="implied_ids" eval="[(4, ref('group_lms_member'))]"/>
+<!--                implied_ids defines hierarchy of the groups and this means the employees gets all members access rights-->
+            <field name="comment">Employee role: Can manage books, loans, Members</field>
+        </record>
+
+        <record id="group_lms_librarian_manager" model="res.groups">
+            <field name="name">Librarian Manager</field>
+            <field name="category_id" ref="module_category_lms"/>
+            <field name="implied_ids" eval="[(4, ref('group_lms_librarian_employee'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <!--            both the Odoo "Root" user and the "Administrator" user are automatically assigned to
+            the "LMS / Librarian Manager" security group when your LMS module is installed or updated. -->
+            <field name="comment">Administrator role: Full access to all online courses data and configurations.</field>
+        </record>
+
+    </data>
+</odoo>

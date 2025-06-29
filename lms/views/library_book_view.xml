@@ -1,0 +1,104 @@
+<odoo>
+    <record id="view_library_book_tree" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <field name="author_id"/>
+                <field name="publication_year"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Book">
+                <header>
+         <!--% (Percentage Sign): This signifies that what follows is a placeholder that Odoo's XML parser needs to resolve.
+            It's similar to string formatting in Python (e.g., "%s" % variable).
+
+            d (Format Specifier): This is a format specifier that tells Odoo to convert
+            the resolved XML ID into its database ID (integer).
+            -->
+                    <button name="%(action_borrow_book_wizard)d"
+                            type="action"
+                            string="Borrow Book"
+                            class="oe_highlight"
+                            icon="fa-exchange"/>
+                    <field name="status" widget="statusbar" statusbar_visible="available,borrowed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Book Information">
+                            <field name="title"/>
+                            <field name="author_id"/>
+                            <field name="isbn"/>
+                            <field name="publication_year"/>
+                        </group>
+                        <group string="Inventory logs">
+                            <field name="total_copies"/>
+                            <field name="available_copies"/>
+                        </group>
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_book_kanban" model="ir.ui.view">
+    <field name="name">library.book.kanban</field>
+    <field name="model">library.book</field>
+    <field name="arch" type="xml">
+        <kanban class="o_kanban_example">
+            <field name="title"/>
+            <field name="author_id"/>
+            <field name="status"/>
+            <field name="available_copies"/>
+            <field name="total_copies"/>
+
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click o_kanban_record">
+                        <div class="o_kanban_details">
+                            <strong>
+                                <field name="title"/>
+                            </strong>
+                            <div>
+                                <small>Author: <field name="author_id"/></small>
+                            </div>
+                            <div>
+                                <span>Status: <field name="status"/></span>
+                            </div>
+                            <div>
+                                <span>Available: <field name="available_copies"/> / <field name="total_copies"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
+
+    <record id="view_library_book_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="title"/>
+                <field name="publication_year"/>
+                <field name="author_id"/>
+                <filter string="publication year" name="publication_year"/>
+                <filter string="Borrowed" name="borrowed_books" domain="[('status', '=', 'borrowed')]"/>
+                <filter string="Available" name="available_books" domain="[('status', '=', 'available')]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

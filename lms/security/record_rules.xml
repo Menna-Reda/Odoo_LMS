@@ -1,0 +1,46 @@
+<odoo>
+    <record id="library_loan_rule_member_own_loans" model="ir.rule">
+            <field name="name">LMS Member: Own Loans Only</field>
+            <field name="model_id" ref="model_library_loan"/>
+            <field name="domain_force">[('partner_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_lms_member'))]"/>
+            <field name="global" eval="False"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="library_loan_rule_member_own_loans_lines" model="ir.rule">
+            <field name="name">LMS Member: Own Loans lines Only</field>
+            <field name="model_id" ref="lms.model_library_loan_line"/>
+            <field name="domain_force">[('loan_id.partner_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_lms_member'))]"/>
+            <field name="global" eval="False"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="library_loan_rule_librarian_all_loans" model="ir.rule">
+            <field name="name">LMS Librarian: All Loans</field>
+            <field name="model_id" ref="model_library_loan"/>
+            <field name="domain_force">[(1, '=', 1)]</field> <field name="groups" eval="[(4, ref('group_lms_librarian_employee'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="library_loan_rule_librarian_all_loan_lines" model="ir.rule">
+            <field name="name">LMS Librarian: All Loan Lines</field>
+            <field name="model_id" ref="model_library_loan_line"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_lms_librarian_employee'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+</odoo>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_lms_root"
+              name="Library"
+              sequence="0"
+               web_icon="lms,static/description/icon.png"/>
+
+
+        <menuitem id="menu_library_book_list"
+                  name="Books"
+                  parent="menu_lms_root"
+                  action="action_library_book_list"
+                  sequence="9"
+        />
+         <menuitem id="menu_library_loan_list"
+                  name="Loans"
+                  parent="menu_lms_root"
+                   action="action_library_loan_list"
+                  sequence="10"
+        />
+        <menuitem id="menu_library_configuration"
+                  name="Configuration"
+                  parent="menu_lms_root"
+                  sequence="11"
+        />
+        <menuitem id="menu_library_dashboard"
+                  name="Dashboard"
+                  parent="menu_library_configuration"
+                  action="action_overdue_loans"
+                  sequence="13"
+        />
+        <menuitem id="menu_library_dashboard_graph"
+                  name="Graphs"
+                  parent="menu_library_configuration"
+                  action="action_top_borrowed_books"
+                  sequence="13"
+        />
+        <menuitem id="menu_library_reports"
+                  name="Reports"
+                  parent="menu_library_configuration"
+                  action="action_open_loans_for_report"
+                  sequence="14"
+        />
+        <menuitem id="menu_library_author"
+              name="Authors"
+              parent="menu_lms_root"
+              sequence="10"
+              action="action_library_author"/>
+
+        <menuitem
+        id="menu_library_members"
+        name="Members"
+        parent="menu_lms_root"
+        action="action_res_partner"
+        sequence="10"
+        groups="group_lms_librarian_manager,group_lms_librarian_employee"
+        />
+
+    </data>
+
+</odoo>
