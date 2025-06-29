@@ -85,7 +85,7 @@ This Odoo module enhances the base **Library Management System** with robust bor
 
 ---
 
-## ✅ What I Added:
+## ✅ What I Added extra to the task:
 
 - ✅ **Author model** with full views
 - ✅ **Kanban view** for books
